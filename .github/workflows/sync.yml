@@ -2,7 +2,7 @@ name: Firebase Sync
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # প্রতি 10 মিনিটে auto sync
+    - cron: "*/10 * * * *"  # প্রতি 10 মিনিটে auto sync
   workflow_dispatch:        # optionally manual run
 
 jobs:
