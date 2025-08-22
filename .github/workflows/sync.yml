@@ -1,26 +1,26 @@
-name: Firebase Sync
+name: Auto Sync Firebase JSON
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  # প্রতি 10 মিনিটে auto sync
-  workflow_dispatch:        # optionally manual run
+    - cron: "*/5 * * * *"   # প্রতি 5 মিনিটে রান হবে
+  workflow_dispatch:        # চাইলে ম্যানুয়ালি রান করতে পারো
 
 jobs:
-  sync:
+  update-json:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Fetch JSON from Firebase
+        run: |
+          curl -s "https://talha-07-live.github.io/firebase-sync-data/data.json" -o data.json
 
-      - name: Install Firebase
-        run: npm install firebase-admin
-
-      - name: Sync Firebase to data.json
-        run: node sync.js
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{secrets.FIREBASE_SERVICE_ACCOUNTT}}
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "Auto update data.json from Firebase [skip ci]" || echo "No changes to commit"
+          git push
