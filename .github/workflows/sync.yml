@@ -14,7 +14,7 @@ jobs:
 
       - name: Fetch remote JSON
         run: |
-          curl -s https://talha-07-live.github.io/firebase-sync-data/data.json -o data.json
+          curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
 
       - name: Commit and push changes
         run: |
