@@ -2,7 +2,7 @@ name: Firebase JSON Sync
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # প্রতি 2 মিনিটে রান
+    - cron: '*/5 * * * *' # প্রতি 2 মিনিটে রান
   workflow_dispatch: # ম্যানুয়ালি চালানোর অপশন
 
 jobs:
