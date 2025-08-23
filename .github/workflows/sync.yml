@@ -17,12 +17,10 @@ jobs:
         run: |
           curl -s "https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json" -o data.json
 
-            - name: Commit and Push data.json
-            run: |
+      - name: Commit and push changes
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
           git add data.json
-          git commit -m "Auto-sync: update data.json" || echo "No changes to commit"
-          git push origin main
-
+          git commit -m "Auto-update data.json from Firebase" || echo "No changes to commit"
+          git push
