@@ -1,8 +1,6 @@
 name: Firebase JSON Sync
 
 on:
-  schedule:
-    - cron: '*/5 * * * *' # প্রতি 2 মিনিটে রান
   workflow_dispatch: # ম্যানুয়ালি চালানোর অপশন
 
 jobs:
@@ -25,6 +23,5 @@ jobs:
       - name: Commit & Push
         run: |
           git add data.json
-          git commit -m "Auto-update data.json from Firebase" || echo "No changes to commit"
-          git pull --rebase origin main || echo "No remote changes to pull"
+          git commit --allow-empty -m "Auto-update data.json from Firebase"
           git push origin main
