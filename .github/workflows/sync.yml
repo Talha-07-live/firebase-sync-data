@@ -16,10 +16,11 @@ jobs:
         run: |
           curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json
-          git diff --cached --quiet || git commit -m "Auto-sync: update data.json"
-          git push
+      - name: Push changes
+  run: |
+    git config user.name "github-actions[bot]"
+    git config user.email "github-actions[bot]@users.noreply.github.com"
+    git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Talha-07-live/firebase-sync-data.git
+    git add data.json
+    git commit -m "Auto-sync: update data.json" || echo "No changes to commit"
+    git push origin main
