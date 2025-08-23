@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase Sync</title>
+</head>
+<body>
+  <h1>Firebase Data Sync</h1>
+  <button id="refreshBtn">Refresh Firebase Data</button>
+
+  <script>
+    document.getElementById("refreshBtn").addEventListener("click", async () => {
+      try {
+        const response = await fetch("/.github/workflows/trigger-refresh.yml/dispatches", {
+          method: "POST",
+          headers: {
+            "Accept": "application/vnd.github+json"
+          },
+          body: JSON.stringify({
+            ref: "main"
+          })
+        });
+
+        if(response.ok){
+          alert("Firebase sync workflow triggered!");
+        } else {
+          const text = await response.text();
+          console.log(text);
+          alert("Failed to trigger workflow. Check console for details.");
+        }
+      } catch(err) {
+        console.error(err);
+        alert("Error triggering workflow.");
+      }
+    });
+  </script>
+</body>
+</html>
