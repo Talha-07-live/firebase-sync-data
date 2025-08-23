@@ -1,9 +1,10 @@
 name: Firebase JSON Sync
 
+# প্রতি ৫ মিনিটে স্বয়ংক্রিয়ভাবে রান + ম্যানুয়ালি ট্রিগার
 on:
   schedule:
     - cron: '*/5 * * * *' # প্রতি 5 মিনিটে রান
-  workflow_dispatch: # ম্যানুয়াল ট্রিগার
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -25,7 +26,7 @@ jobs:
         run: |
           curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
 
-      # Commit & Force Push
+      # Commit & Force Push (overwrite remote changes)
       - name: Commit & Force Push
         run: |
           git add data.json
