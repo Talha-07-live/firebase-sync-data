@@ -2,32 +2,29 @@ name: Firebase JSON Sync
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # প্রতি 5 মিনিটে রান
-  workflow_dispatch: # ম্যানুয়াল ট্রিগার
+    - cron: '*/5 * * * *' # প্রতি 2 মিনিটে রান
+  workflow_dispatch: # ম্যানুয়ালি চালানোর অপশন
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      # রিপোজিটরি ক্লোন
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      # Git সেটআপ
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Firebase JSON ডাউনলোড
       - name: Fetch Firebase JSON
         run: |
           curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
 
-      # Commit & Force Push (overwrite remote changes)
-      - name: Commit & Force Push
+      - name: Commit & Push
         run: |
           git add data.json
           git commit -m "Auto-update data.json from Firebase" || echo "No changes to commit"
-          git push origin main --force
+          git pull --rebase origin main || echo "No remote changes to pull"
+          git push origin main
