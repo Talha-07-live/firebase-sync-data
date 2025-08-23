@@ -1,8 +1,7 @@
-name: Firebase JSON Sync
+name: Sync
 
 on:
-  workflow_dispatch:   # manual trigger
-  repository_dispatch: # trigger from another page/workflow
+  workflow_dispatch:
 
 jobs:
   sync:
