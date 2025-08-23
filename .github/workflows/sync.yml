@@ -1,27 +1,26 @@
-name: Sync Firebase Data
+name: Fetch Firebase Data
 
 on:
   schedule:
-    - cron: "*/2 * * * *"   # প্রতি 5 মিনিটে চলবে
-  workflow_dispatch:        # ম্যানুয়ালি চালানোর জন্য
+    - cron: "*/2 * * * *"   # প্রতি 2 মিনিট পরপর রান করবে
+  workflow_dispatch:        # চাইলে ম্যানুয়ালি ট্রিগারও করা যাবে
 
 jobs:
-  sync:
+  fetch:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Fetch remote JSON
+      - name: Fetch data from Firebase
         run: |
-          curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
-          
-          - name: Commit and push changes
-          run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          curl -s "https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json" -o data.json
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data.json
-          git commit -m "Auto-sync: update data.json" || echo "No changes to commit"
+          git commit -m "Update data.json from Firebase"
           git push
-          env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
