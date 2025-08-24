@@ -1,0 +1,22 @@
+{
+  "name": "Talha's Collection",
+  "short_name": "Talha",
+  "description": "A huge collection of movies, shows and more.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff5733",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://s10.gifyu.com/images/SrMU9.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
