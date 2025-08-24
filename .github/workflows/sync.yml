@@ -18,7 +18,7 @@ jobs:
 
       - name: Fetch Firebase JSON
         run: |
-          curl -s https://data.talhascollection.xo.je/movies_5000_downloadable_oneline.json -o data.json
+          curl -s https://my-book-project-c5a17-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json -o data.json
 
       - name: Commit & Push
         run: |
